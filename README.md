@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KanoonGPT
 
-## Getting Started
+-->supabase for auth, database.
+-->pinecone/chromaDB for vectorDB.
+-->trpc for type safe rest api calls
 
-First, run the development server:
+-->one landing page + one working page
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# IN THE WORKING PAGE
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+--> user can upload a legal text or a legal docs
+--> legal docs will be parsed using a library and converted to text
+--> this text will in a chunked manner will also be added to vector db (for future retrival in the chat session)
+--> now this text will be feed to gemini api 
+--> gemin api will summarize the entire legal docs in simple words and also figure out important clauses 
+with labels like Termination, confidentaility, Arbitration, Payments etc, these labels will be marked with diff colors with a tooltip (CTA) for explaining this clauses in depth.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+--> clicking on this tooltip will initiate the chat session 
+--> also clicking on start chat button will initiate the chat session
 
-## Learn More
+--> once the chat session is started, all the chats will be embedded and stored in vector db.
+--> and for each subsequent gemini api request , context feeeded will be retrived from vector db on the basis of the user's query. 
 
-To learn more about Next.js, take a look at the following resources:
+---> to improve ux/loading/and ensure low token limit usage, we can do
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. when the pdf text is uploaded to gemini api in one go (it might be a very large token). so we will iterate the tokens and summarize in each iteration and then hit the api again with the summary + next token iteration to create new summary.
+we will keep doing this until the end of tokens.( this will comes in handy for large pdfs )
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. chat streaming to enhance ux for chats/and give a impression of less loading time
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. good crispy animation for highlighting clause , easy flow, colors and overall ux is important.
