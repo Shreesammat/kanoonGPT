@@ -231,10 +231,10 @@ function AnimatedCard({ card, index }: { card: CardData; index: number }) {
       </CardContent>
       <CardFooter>
         <Button
-          className="w-full group-hover:bg-primary group-hover:text-foreground transition-all duration-300 bg-transparent"
+          className="w-full  group-hover:text-foreground transition-all duration-300 bg-transparent"
           variant="outline"
         >
-          Learn More
+          Continue Chat
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
         </Button>
       </CardFooter>

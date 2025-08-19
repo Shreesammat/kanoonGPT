@@ -2,89 +2,51 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/navbar/navbar";
+import { ArrowSVg, CurvedLine } from "@/components/svg/svg";
+import { Footer } from "@/components/footer/footer";
+import { ChatBotDemo, ProductDemo } from "@/components/productDemo/productDemo";
+import { Scale } from "lucide-react";
+
 
 export default function Home() {
 
   const router = useRouter()
   return (
-    <div className="bg-background text-foreground gap-0 flex flex-col min-h-screen">
-      {/* Header */}
-      <Navbar />
-      {/* Main Content */}
-      <main className="flex-1 max-w-7xl justify-center items-center mx-auto px-4 sm:px-6 lg:px-8 pt-10 flex flex-col">
-        {/* Hero Section */}
-        <section className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            No More Legal Headaches
-            <br />
-            Just Straightforward Summaries
-          </h1>
-          <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-            “Upload your contracts and let AI turn them into clear, simple summaries with key clauses highlighted and explained.”
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+    <main className="newsreader-kanoongpt" >
+      <div className="bg-background text-foreground gap-0 flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-1 max-w-7xl justify-center items-center mx-auto px-4 sm:px-6 lg:px-8 pt-10 flex flex-col">
+          <section className="text-center relative mb-12">
+            <h1 className="text-5xl font-medium sm:text-6xl mb-4 leading-tight">
+              Meet Your <br />Legal Guide
+            </h1>
+            <p className="text-lg text-muted-foreground mb-6 mt-2 max-w-2xl mx-auto">
+              No More Legal Headaches
+              Just Straightforward Summaries
+            </p>
+            <ArrowSVg />
+            <CurvedLine />
             <Button
-              onClick={() => router.push("/auth")}
-              className="bg-primary text-primary-foreground cursor-pointer hover:bg-primary/90 px-6 py-2">
-              Get Started
-            </Button>
-            <Button
-              onClick={() => router.push("/auth")}
-              variant="outline"
-              className="border-border cursor-pointer text-foreground px-6 py-2 bg-transparent"
-            >
-              Try Demo
-            </Button>
-          </div>
+            onClick={() => router.push("/auth")}
+            variant="default"
+            size={'lg'}
+            className="border-chart-2/20 border
+            hover:text-background mt-2 flex justify-center m-auto items-center
+            hover:bg-chart-2/80 ease-in duration-75  cursor-pointer text-foreground px-6 py-2 bg-transparent"
+          >
+            <p className="mt-" >Get Started</p> <Scale />
+          </Button>
 
-        </section>
-
-      </main>
-      {/* <section className="flex w-full flex-col sm:flex-row items-center gap-10 sm:gap-0 sm:items-end mb-10 justify-around" >
-
-        <Card className="sm:w-[18%] rounded-xl sm:h-52 " >
-          <CardHeader className="h-full flex flex-col justify-center items-start" >
-            <CardTitle>  <FileText /></CardTitle>
-            <CardDescription className="text-accent-foreground mt-2" >Automatically detect and surface the most important clauses in your legal documents.</CardDescription>
-          </CardHeader>
-        </Card>
+          
+          </section>
+        </main>
 
 
-        <Card className="sm:w-[13%] rounded-xl sm:h-44 " >
-          <CardHeader className="h-full flex flex-col justify-center items-start" >
-            <CardTitle>  <Upload /></CardTitle>
-            <CardDescription className="text-accent-foreground mt-2" >Easily upload contracts, agreements, or any legal text in a few clicks.</CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card className="sm:w-[10%] rounded-xl sm:h-38 " >
-          <CardHeader className="h-full flex flex-col justify-center items-start" >
-            <CardTitle>  <Star /></CardTitle>
-            <CardDescription className="text-accent-foreground mt-2" >Rate your experience with our document summaries.</CardDescription>
-
-          </CardHeader>
-        </Card>
-
-        <Card className="sm:w-[13%] rounded-xl sm:h-38 " >
-          <CardHeader className="h-full flex flex-col justify-center items-start" >
-            <CardTitle>  <Bookmark /></CardTitle>
-            <CardDescription className="text-accent-foreground mt-2" >Organize and access all your legal document summaries in one place.</CardDescription>
-          </CardHeader>
-        </Card>
-
-        <Card className="sm:w-[18%] rounded-xl sm:h-52 " >
-          <CardHeader className="h-full flex flex-col justify-center items-start" >
-            <CardTitle>  <MessageSquare /></CardTitle>
-            <CardDescription className="text-accent-foreground mt-2" >
-              Get clear, plain-English summaries of complex legal documents instantly.
-            </CardDescription>
-          </CardHeader>
-        </Card>
-
-      </section> */}
-    </div>
+      </div>
+      <ProductDemo />
+      <ChatBotDemo />
+      <Footer />
+    </main>
   );
 }
 

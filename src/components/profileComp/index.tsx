@@ -6,7 +6,7 @@ import { Textarea } from "../ui/textarea"
 
 export const Index = () => {
   return (
-    <main className="flex flex-col gap-10 w-full" >
+    <main className="flex flex-col pt-20 gap-10 w-full" >
       <TextareaUploadCard />
       <AnimatedCardsSection />
     </main>

@@ -3,6 +3,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -44,6 +46,9 @@
 }
 
 :root {
+  --font-open-sans: 'Open Sans', sans-serif;
+  --font-newsreader: 'Newsreader', serif;
+  /* Add this line */
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -98,7 +103,7 @@
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-2: oklch(81.672% 0.17429 162.584);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
@@ -139,4 +144,13 @@
 
 button {
   cursor: pointer;
+}
+
+
+.open-sans-kanoongpt {
+  font-family: var(--font-open-sans);
+}
+
+.newsreader-kanoongpt {
+  font-family: var(--font-newsreader);
 }
