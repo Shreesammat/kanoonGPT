@@ -112,10 +112,25 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* globals.css or your main stylesheet */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE + Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

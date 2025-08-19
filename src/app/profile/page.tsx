@@ -3,10 +3,9 @@
 import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Index } from "@/components/profileComp/index"
 import { toast } from "sonner";
 import { ProfileNavbar } from "@/components/navbar/navbar";
-import { AnimatedCardsSection } from "@/components/profileComp/pastSessions";
+import { Index } from "@/components/profileComp";
 
 export default function ProfilePage() {
   const router = useRouter()

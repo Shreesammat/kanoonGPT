@@ -1,14 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import { Bookmark, FileText, MessageSquare, Star, Upload } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/navbar/navbar";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 
 export default function Home() {
 
@@ -49,7 +42,7 @@ export default function Home() {
         </section>
 
       </main>
-      <section className="flex w-full flex-col sm:flex-row items-center gap-10 sm:gap-0 sm:items-end mb-10 justify-around" >
+      {/* <section className="flex w-full flex-col sm:flex-row items-center gap-10 sm:gap-0 sm:items-end mb-10 justify-around" >
 
         <Card className="sm:w-[18%] rounded-xl sm:h-52 " >
           <CardHeader className="h-full flex flex-col justify-center items-start" >
@@ -74,7 +67,6 @@ export default function Home() {
           </CardHeader>
         </Card>
 
-
         <Card className="sm:w-[13%] rounded-xl sm:h-38 " >
           <CardHeader className="h-full flex flex-col justify-center items-start" >
             <CardTitle>  <Bookmark /></CardTitle>
@@ -91,7 +83,7 @@ export default function Home() {
           </CardHeader>
         </Card>
 
-      </section>
+      </section> */}
     </div>
   );
 }
