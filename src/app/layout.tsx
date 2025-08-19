@@ -8,7 +8,7 @@ import { cookies } from "next/headers";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { TrpcProviders } from "@/providers/trpcProvider";
 import { Toaster } from "@/components/ui/sonner";
-import SupabaseProvider from "@/providers/supabaseProvider"; // Corrected path based on your structure
+import SupabaseProvider from "@/providers/supabaseProvider"; 
 
 
 const geistSans = Geist({
