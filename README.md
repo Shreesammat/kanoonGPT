@@ -33,5 +33,7 @@ we will keep doing this until the end of tokens.( this will comes in handy for l
 
 # WORK DIVISON
 --> Adi, Abhishek: Frontend
+
 --> Lavneesh: Backend + prompting
+
 --> Sarim, Sammat: Chunking + RAG pipeline
