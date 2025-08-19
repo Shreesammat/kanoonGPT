@@ -1,6 +1,6 @@
 "use client"
 
-import { useSessionContext, useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useSessionContext } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { Index } from "@/components/profileComp/index"
