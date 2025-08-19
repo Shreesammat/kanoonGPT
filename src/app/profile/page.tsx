@@ -26,7 +26,6 @@ export default function ProfilePage() {
     <main >
       <ProfileNavbar imageSrc={user?.user_metadata.avatar_url} userName={user?.user_metadata.name} email={user?.email} />
       <Index />
-      <AnimatedCardsSection />
     </main>
   );
 }

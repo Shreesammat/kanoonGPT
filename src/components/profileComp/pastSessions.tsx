@@ -50,6 +50,134 @@ const mockData: CardData[] = [
     icon: <Star className="w-8 h-8" />,
     color: "text-yellow-500",
   },
+  {
+    id: 1,
+    title: "Freelance Contract",
+    description: "Join our interactive design session to explore new creative possibilities and enhance your skills.",
+    date: "2024-03-15",
+    icon: <Sparkles className="w-8 h-8" />,
+    color: "text-blue-500",
+  },
+  {
+    id: 2,
+    title: "Remote Job Contract",
+    description: "Discover the latest technological breakthroughs and network with industry leaders.",
+    date: "2024-03-22",
+    icon: <Zap className="w-8 h-8" />,
+    color: "text-purple-500",
+  },
+  {
+    id: 3,
+    title: "Mortgage Paper",
+    description: "A holistic approach to wellness featuring mindfulness sessions and healthy living tips.",
+    date: "2024-03-28",
+    icon: <Heart className="w-8 h-8" />,
+    color: "text-green-500",
+  },
+  {
+    id: 4,
+    title: "Lease Papers",
+    description: "Celebrating outstanding achievements and recognizing exceptional contributions to our community.",
+    date: "2024-04-05",
+    icon: <Star className="w-8 h-8" />,
+    color: "text-yellow-500",
+  },
+  {
+    id: 1,
+    title: "Freelance Contract",
+    description: "Join our interactive design session to explore new creative possibilities and enhance your skills.",
+    date: "2024-03-15",
+    icon: <Sparkles className="w-8 h-8" />,
+    color: "text-blue-500",
+  },
+  {
+    id: 2,
+    title: "Remote Job Contract",
+    description: "Discover the latest technological breakthroughs and network with industry leaders.",
+    date: "2024-03-22",
+    icon: <Zap className="w-8 h-8" />,
+    color: "text-purple-500",
+  },
+  {
+    id: 3,
+    title: "Mortgage Paper",
+    description: "A holistic approach to wellness featuring mindfulness sessions and healthy living tips.",
+    date: "2024-03-28",
+    icon: <Heart className="w-8 h-8" />,
+    color: "text-green-500",
+  },
+  {
+    id: 4,
+    title: "Lease Papers",
+    description: "Celebrating outstanding achievements and recognizing exceptional contributions to our community.",
+    date: "2024-04-05",
+    icon: <Star className="w-8 h-8" />,
+    color: "text-yellow-500",
+  },
+  {
+    id: 1,
+    title: "Freelance Contract",
+    description: "Join our interactive design session to explore new creative possibilities and enhance your skills.",
+    date: "2024-03-15",
+    icon: <Sparkles className="w-8 h-8" />,
+    color: "text-blue-500",
+  },
+  {
+    id: 2,
+    title: "Remote Job Contract",
+    description: "Discover the latest technological breakthroughs and network with industry leaders.",
+    date: "2024-03-22",
+    icon: <Zap className="w-8 h-8" />,
+    color: "text-purple-500",
+  },
+  {
+    id: 3,
+    title: "Mortgage Paper",
+    description: "A holistic approach to wellness featuring mindfulness sessions and healthy living tips.",
+    date: "2024-03-28",
+    icon: <Heart className="w-8 h-8" />,
+    color: "text-green-500",
+  },
+  {
+    id: 4,
+    title: "Lease Papers",
+    description: "Celebrating outstanding achievements and recognizing exceptional contributions to our community.",
+    date: "2024-04-05",
+    icon: <Star className="w-8 h-8" />,
+    color: "text-yellow-500",
+  },
+  {
+    id: 1,
+    title: "Freelance Contract",
+    description: "Join our interactive design session to explore new creative possibilities and enhance your skills.",
+    date: "2024-03-15",
+    icon: <Sparkles className="w-8 h-8" />,
+    color: "text-blue-500",
+  },
+  {
+    id: 2,
+    title: "Remote Job Contract",
+    description: "Discover the latest technological breakthroughs and network with industry leaders.",
+    date: "2024-03-22",
+    icon: <Zap className="w-8 h-8" />,
+    color: "text-purple-500",
+  },
+  {
+    id: 3,
+    title: "Mortgage Paper",
+    description: "A holistic approach to wellness featuring mindfulness sessions and healthy living tips.",
+    date: "2024-03-28",
+    icon: <Heart className="w-8 h-8" />,
+    color: "text-green-500",
+  },
+  {
+    id: 4,
+    title: "Lease Papers",
+    description: "Celebrating outstanding achievements and recognizing exceptional contributions to our community.",
+    date: "2024-04-05",
+    icon: <Star className="w-8 h-8" />,
+    color: "text-yellow-500",
+  },
 ]
 
 function LoadingCard({ delay }: { delay: number }) {
@@ -104,7 +232,7 @@ function AnimatedCard({ card, index }: { card: CardData; index: number }) {
       </CardContent>
       <CardFooter>
         <Button
-          className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 bg-transparent"
+          className="w-full group-hover:bg-primary group-hover:text-foreground transition-all duration-300 bg-transparent"
           variant="outline"
         >
           Learn More
@@ -129,7 +257,7 @@ export function AnimatedCardsSection() {
   }, [])
 
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
+    <section className="py-16 px-20 w-full mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
           Past Conversions
@@ -142,7 +270,7 @@ export function AnimatedCardsSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {isLoading
           ? Array.from({ length: 4 }, (_, index) => <LoadingCard key={index} delay={index * 200} />)
-          : cards.map((card, index) => <AnimatedCard key={card.id} card={card} index={index} />)}
+          : cards.map((card, index) => <AnimatedCard key={`${index}_${card.id}`} card={card} index={index} />)}
       </div>
     </section>
   )
