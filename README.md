@@ -31,7 +31,7 @@ we will keep doing this until the end of tokens.( this will comes in handy for l
 
 3. good crispy animation for highlighting clause , easy flow, colors and overall ux is important.
 
-#Work division
+# WORK DIVISON
 --> Adi, Abhishek: Frontend
 --> Lavneesh: Backend + prompting
 --> Sarim, Sammat: Chunking + RAG pipeline
