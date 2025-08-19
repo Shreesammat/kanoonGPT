@@ -5,10 +5,7 @@ import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/navbar/navbar";
 import {
   Card,
-  CardAction,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
