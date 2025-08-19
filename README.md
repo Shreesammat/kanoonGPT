@@ -30,3 +30,8 @@ we will keep doing this until the end of tokens.( this will comes in handy for l
 2. chat streaming to enhance ux for chats/and give a impression of less loading time
 
 3. good crispy animation for highlighting clause , easy flow, colors and overall ux is important.
+
+#Work division
+--> Adi, Abhishek: Frontend
+--> Lavneesh: Backend + prompting
+--> Sarim, Sammat: Chunking + RAG pipeline
