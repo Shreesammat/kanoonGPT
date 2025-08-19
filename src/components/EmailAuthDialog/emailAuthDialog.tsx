@@ -37,7 +37,6 @@ export function EmailAuthCard({ onSignIn, onSignUp, onGoogleSignIn }: EmailAuthC
   const handleGoogleClick = async () => {
     setLoading("google");
     await onGoogleSignIn();
-    // no reset since redirect usually happens
   }
 
   return (
