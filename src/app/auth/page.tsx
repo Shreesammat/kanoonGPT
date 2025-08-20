@@ -53,7 +53,7 @@ export default function AuthPage() {
         }
     };
 
-    return <main className="min-h-screen" >
+    return <main className="min-h-screen pt-20 px-5" >
         {isLoading && <SimpleLoader />}
         <Navbar />
         <div className="flex justify-center items-center py-10">

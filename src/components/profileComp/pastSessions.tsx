@@ -145,39 +145,10 @@ const mockData: CardData[] = [
     icon: <Star className="w-8 h-8" />,
     color: "text-yellow-500",
   },
-  {
-    id: 1,
-    title: "Freelance Contract",
-    description: "Join our interactive design session to explore new creative possibilities and enhance your skills.",
-    date: "2024-03-15",
-    icon: <Sparkles className="w-8 h-8" />,
-    color: "text-blue-500",
-  },
-  {
-    id: 2,
-    title: "Remote Job Contract",
-    description: "Discover the latest technological breakthroughs and network with industry leaders.",
-    date: "2024-03-22",
-    icon: <Zap className="w-8 h-8" />,
-    color: "text-purple-500",
-  },
-  {
-    id: 3,
-    title: "Mortgage Paper",
-    description: "A holistic approach to wellness featuring mindfulness sessions and healthy living tips.",
-    date: "2024-03-28",
-    icon: <Heart className="w-8 h-8" />,
-    color: "text-green-500",
-  },
-  {
-    id: 4,
-    title: "Lease Papers",
-    description: "Celebrating outstanding achievements and recognizing exceptional contributions to our community.",
-    date: "2024-04-05",
-    icon: <Star className="w-8 h-8" />,
-    color: "text-yellow-500",
-  },
+ 
 ]
+
+
 
 function LoadingCard({ delay }: { delay: number }) {
   return (
@@ -231,10 +202,10 @@ function AnimatedCard({ card, index }: { card: CardData; index: number }) {
       </CardContent>
       <CardFooter>
         <Button
-          className="w-full group-hover:bg-primary group-hover:text-foreground transition-all duration-300 bg-transparent"
+          className="w-full  group-hover:text-foreground transition-all duration-300 bg-transparent"
           variant="outline"
         >
-          Learn More
+          Continue Chat
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
         </Button>
       </CardFooter>
@@ -256,7 +227,7 @@ export function AnimatedCardsSection() {
   }, [])
 
   return (
-    <section className="py-16 px-20 w-full mx-auto">
+    <section className="py-16 px-2 sm:px-10 w-full mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
           Past Conversions

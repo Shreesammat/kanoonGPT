@@ -1,6 +1,4 @@
-import { useRouter } from "next/navigation"
-import { ModeToggle } from "../ToggleTheme/toggleTheme"
-import { Button } from "../ui/button"
+"use client"
 import { Ellipsis, LogOut, Settings } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -11,83 +9,219 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-export const Navbar = () => {
-    const router = useRouter()
-    return (<header className="bg-card border-b border-border flex-shrink-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-                {/* Logo */}
-                <div
-                    onClick={() => router.push("/")}
-                    className="flex items-center gap-2 cursor-pointer">
-                    <svg width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 20C0 12.5231 0 8.78461 1.60769 6C2.66091 4.17577 4.17577 2.66091 6 1.60769C8.78461 0 12.5231 0 20 0C27.4769 0 31.2154 0 34 1.60769C35.8242 2.66091 37.3391 4.17577 38.3923 6C40 8.78461 40 12.5231 40 20C40 27.4769 40 31.2154 38.3923 34C37.3391 35.8242 35.8242 37.3391 34 38.3923C31.2154 40 27.4769 40 20 40C12.5231 40 8.78461 40 6 38.3923C4.17577 37.3391 2.66091 35.8242 1.60769 34C0 31.2154 0 27.4769 0 20Z" fill="#00DC33"></path>
-                        <path fillRule="evenodd" clipRule="evenodd" d="M28.0441 7.60927C28.8868 6.80331 30.2152 6.79965 31.0622 7.58229L31.1425 7.66005L31.4164 7.94729C34.1911 10.9318 35.2251 14.4098 34.9599 17.8065C34.6908 21.2511 33.1012 24.4994 30.8836 27.0664C28.6673 29.6316 25.7084 31.6519 22.51 32.5287C19.2714 33.4164 15.7294 33.1334 12.6547 30.9629C10.0469 29.1218 9.05406 26.1465 8.98661 23.2561C7.52323 22.5384 5.98346 21.6463 4.36789 20.5615L3.941 20.2716L3.85006 20.206C2.93285 19.5053 2.72313 18.2084 3.39161 17.2564C4.06029 16.3043 5.36233 16.046 6.34665 16.6512L6.44134 16.7126L6.83024 16.9771C7.79805 17.6269 8.72153 18.1903 9.59966 18.6767C10.1661 16.6889 11.1047 14.7802 12.3413 13.207C14.1938 10.8501 16.9713 8.96525 20.374 9.24647C23.439 9.49995 25.7036 11.081 26.8725 13.3122C28.0044 15.4728 28.0211 18.0719 27.0319 20.307C26.0234 22.5857 23.976 24.484 21.0309 25.2662C18.9114 25.8291 16.4284 25.7905 13.6267 25.0367V25.0377C12.5115 24.7375 11.3427 24.323 10.1212 23.7846C9.8472 23.6638 9.60873 23.8483 10.1212 24.1686C11.5636 25.1924 13.5956 26.0505 14.1836 26.3385C14.4615 26.788 14.8061 27.1568 15.2011 27.4356C17.0188 28.7188 19.1451 28.9539 21.3396 28.3523C23.5743 27.7397 25.8141 26.2625 27.5514 24.2516C29.2873 22.2423 30.4065 19.8348 30.5909 17.4727C30.765 15.2439 30.1218 12.9543 28.1842 10.8736L27.9927 10.6731L27.9162 10.5906C27.1538 9.72748 27.2018 8.41516 28.0441 7.60927ZM20.0092 13.5651C18.6033 13.4489 17.1196 14.189 15.8013 15.8662C14.7973 17.1436 14.0376 18.8033 13.6503 20.5112C16.4093 21.4544 18.4655 21.4608 19.8942 21.0814C21.5481 20.6422 22.5399 19.6477 23.0172 18.5693C23.5137 17.4472 23.4628 16.2245 22.9813 15.3055C22.5369 14.4571 21.6422 13.7002 20.0092 13.5651Z" fill="#ffffff"></path>
-                    </svg>
-                    <span className="text-xl font-semibold">KanoonGPT</span>
-                </div>
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button"; // Assuming these are your components
+import { ModeToggle } from "../ToggleTheme/toggleTheme";
 
-                {/* Navigation */}
-                <nav className="hidden md:flex items-center gap-8">
-                    {["Home", "About", "Services", "Contact"].map((item) => (
-                        <a
-                            key={item}
-                            href="#"
-                            className="text-muted-foreground hover:text-foreground font-medium"
+
+export const Navbar = () => {
+    const router = useRouter();
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        // --- Scroll Background & Hide/Show Logic ---
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            setIsScrolled(currentScrollY > 0);
+
+            // Hide on scroll down, show on scroll up
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                setIsVisible(false); // Scrolling down, hide navbar
+            } else {
+                setIsVisible(true); // Scrolling up or at the top, show navbar
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const headerClasses = `
+    fixed w-full top-0 left-0 z-50
+    transition-all duration-300 ease-in-out
+    ${isScrolled ? "border-b border-border bg-background/80 backdrop-blur-sm shadow-sm" : "bg-transparent border-b border-transparent"}
+    ${isVisible ? "translate-y-0" : "-translate-y-full"}
+  `;
+
+    return (
+        <header className={headerClasses}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16">
+                    {/* Logo */}
+                    <div onClick={() => router.push("/")} className="flex items-center gap-2 cursor-pointer">
+                        {/* Your SVG logo */}
+                        <svg width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 20C0 12.5231 0 8.78461 1.60769 6C2.66091 4.17577 4.17577 2.66091 6 1.60769C8.78461 0 12.5231 0 20 0C27.4769 0 31.2154 0 34 1.60769C35.8242 2.66091 37.3391 4.17577 38.3923 6C40 8.78461 40 12.5231 40 20C40 27.4769 40 31.2154 38.3923 34C37.3391 35.8242 35.8242 37.3391 34 38.3923C31.2154 40 27.4769 40 20 40C12.5231 40 8.78461 40 6 38.3923C4.17577 37.3391 2.66091 35.8242 1.60769 34C0 31.2154 0 27.4769 0 20Z" fill="#00DC33"></path>
+                            <path fillRule="evenodd" clipRule="evenodd" d="M28.0441 7.60927C28.8868 6.80331 30.2152 6.79965 31.0622 7.58229L31.1425 7.66005L31.4164 7.94729C34.1911 10.9318 35.2251 14.4098 34.9599 17.8065C34.6908 21.2511 33.1012 24.4994 30.8836 27.0664C28.6673 29.6316 25.7084 31.6519 22.51 32.5287C19.2714 33.4164 15.7294 33.1334 12.6547 30.9629C10.0469 29.1218 9.05406 26.1465 8.98661 23.2561C7.52323 22.5384 5.98346 21.6463 4.36789 20.5615L3.941 20.2716L3.85006 20.206C2.93285 19.5053 2.72313 18.2084 3.39161 17.2564C4.06029 16.3043 5.36233 16.046 6.34665 16.6512L6.44134 16.7126L6.83024 16.9771C7.79805 17.6269 8.72153 18.1903 9.59966 18.6767C10.1661 16.6889 11.1047 14.7802 12.3413 13.207C14.1938 10.8501 16.9713 8.96525 20.374 9.24647C23.439 9.49995 25.7036 11.081 26.8725 13.3122C28.0044 15.4728 28.0211 18.0719 27.0319 20.307C26.0234 22.5857 23.976 24.484 21.0309 25.2662C18.9114 25.8291 16.4284 25.7905 13.6267 25.0367V25.0377C12.5115 24.7375 11.3427 24.323 10.1212 23.7846C9.8472 23.6638 9.60873 23.8483 10.1212 24.1686C11.5636 25.1924 13.5956 26.0505 14.1836 26.3385C14.4615 26.788 14.8061 27.1568 15.2011 27.4356C17.0188 28.7188 19.1451 28.9539 21.3396 28.3523C23.5743 27.7397 25.8141 26.2625 27.5514 24.2516C29.2873 22.2423 30.4065 19.8348 30.5909 17.4727C30.765 15.2439 30.1218 12.9543 28.1842 10.8736L27.9927 10.6731L27.9162 10.5906C27.1538 9.72748 27.2018 8.41516 28.0441 7.60927ZM20.0092 13.5651C18.6033 13.4489 17.1196 14.189 15.8013 15.8662C14.7973 17.1436 14.0376 18.8033 13.6503 20.5112C16.4093 21.4544 18.4655 21.4608 19.8942 21.0814C21.5481 20.6422 22.5399 19.6477 23.0172 18.5693C23.5137 17.4472 23.4628 16.2245 22.9813 15.3055C22.5369 14.4571 21.6422 13.7002 20.0092 13.5651Z" fill="#ffffff"></path>
+                        </svg>
+                        <span className="text-xl font-semibold">KanoonGPT</span>
+                    </div>
+
+                    {/* Navigation links (Desktop) */}
+                    <nav className="hidden md:flex items-center gap-8">
+                        {["Home", "About", "Services", "Contact"].map((item) => (
+                            <a key={item} href="#" className="text-muted-foreground hover:text-foreground font-medium">
+                                {item}
+                            </a>
+                        ))}
+                    </nav>
+
+                    {/* Right side controls */}
+                    <div className="flex items-center gap-4">
+                        <ModeToggle />
+                        {/* Hamburger menu button for mobile */}
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="md:hidden"
+                            onClick={toggleMenu}
+                            aria-label="Toggle navigation menu"
                         >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
+                            </svg>
+                        </Button>
+                        <Button
+                            onClick={() => router.push("/auth")}
+                            className="bg-chart-2 text-primary-foreground hover:bg-chart-2/90 px-6 hidden md:inline-flex"
+                        >
+                            Sign Up
+                        </Button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mobile menu (Hidden by default, shown when isMenuOpen is true) */}
+            <div
+                className={`md:hidden bg-background overflow-hidden transition-all duration-300 ease-in-out 
+                    ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+            >
+                <div className="flex flex-col items-center gap-4 py-4 border-t border-border">
+                    {["Home", "About", "Services", "Contact"].map((item) => (
+                        <a key={item} href="#" className="block w-full text-center py-2 text-muted-foreground hover:text-foreground font-medium">
                             {item}
                         </a>
                     ))}
-                </nav>
-
-                {/* Sign Up Button */}
-                <div className="flex items-center gap-4">
-                    <ModeToggle />
-                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6">
+                    <Button
+                        onClick={() => router.push("/auth")}
+                        className="w-full bg-chart-2 text-primary-foreground hover:bg-chart-2/90 mt-2"
+                    >
                         Sign Up
                     </Button>
                 </div>
             </div>
-        </div>
-    </header>)
-}
+        </header>
+    );
+};
 
-export const ProfileNavbar = ({ imageSrc, userName, email }: { imageSrc: string | undefined, userName: string | undefined, email: string | undefined }) => {
-    const router = useRouter()
-    return (<header className="bg-card border-b border-border flex-shrink-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-                <div
-                    onClick={() => router.push("/")}
-                    className="flex items-center gap-2 cursor-pointer">
-                    <svg width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 20C0 12.5231 0 8.78461 1.60769 6C2.66091 4.17577 4.17577 2.66091 6 1.60769C8.78461 0 12.5231 0 20 0C27.4769 0 31.2154 0 34 1.60769C35.8242 2.66091 37.3391 4.17577 38.3923 6C40 8.78461 40 12.5231 40 20C40 27.4769 40 31.2154 38.3923 34C37.3391 35.8242 35.8242 37.3391 34 38.3923C31.2154 40 27.4769 40 20 40C12.5231 40 8.78461 40 6 38.3923C4.17577 37.3391 2.66091 35.8242 1.60769 34C0 31.2154 0 27.4769 0 20Z" fill="#00DC33"></path>
-                        <path fillRule="evenodd" clipRule="evenodd" d="M28.0441 7.60927C28.8868 6.80331 30.2152 6.79965 31.0622 7.58229L31.1425 7.66005L31.4164 7.94729C34.1911 10.9318 35.2251 14.4098 34.9599 17.8065C34.6908 21.2511 33.1012 24.4994 30.8836 27.0664C28.6673 29.6316 25.7084 31.6519 22.51 32.5287C19.2714 33.4164 15.7294 33.1334 12.6547 30.9629C10.0469 29.1218 9.05406 26.1465 8.98661 23.2561C7.52323 22.5384 5.98346 21.6463 4.36789 20.5615L3.941 20.2716L3.85006 20.206C2.93285 19.5053 2.72313 18.2084 3.39161 17.2564C4.06029 16.3043 5.36233 16.046 6.34665 16.6512L6.44134 16.7126L6.83024 16.9771C7.79805 17.6269 8.72153 18.1903 9.59966 18.6767C10.1661 16.6889 11.1047 14.7802 12.3413 13.207C14.1938 10.8501 16.9713 8.96525 20.374 9.24647C23.439 9.49995 25.7036 11.081 26.8725 13.3122C28.0044 15.4728 28.0211 18.0719 27.0319 20.307C26.0234 22.5857 23.976 24.484 21.0309 25.2662C18.9114 25.8291 16.4284 25.7905 13.6267 25.0367V25.0377C12.5115 24.7375 11.3427 24.323 10.1212 23.7846C9.8472 23.6638 9.60873 23.8483 10.1212 24.1686C11.5636 25.1924 13.5956 26.0505 14.1836 26.3385C14.4615 26.788 14.8061 27.1568 15.2011 27.4356C17.0188 28.7188 19.1451 28.9539 21.3396 28.3523C23.5743 27.7397 25.8141 26.2625 27.5514 24.2516C29.2873 22.2423 30.4065 19.8348 30.5909 17.4727C30.765 15.2439 30.1218 12.9543 28.1842 10.8736L27.9927 10.6731L27.9162 10.5906C27.1538 9.72748 27.2018 8.41516 28.0441 7.60927ZM20.0092 13.5651C18.6033 13.4489 17.1196 14.189 15.8013 15.8662C14.7973 17.1436 14.0376 18.8033 13.6503 20.5112C16.4093 21.4544 18.4655 21.4608 19.8942 21.0814C21.5481 20.6422 22.5399 19.6477 23.0172 18.5693C23.5137 17.4472 23.4628 16.2245 22.9813 15.3055C22.5369 14.4571 21.6422 13.7002 20.0092 13.5651Z" fill="#ffffff"></path>
-                    </svg>
-                    <span className="text-xl font-semibold">KanoonGPT</span>
-                </div>
+export const ProfileNavbar = ({ imageSrc, userName, email }:
+    { imageSrc: string | undefined, userName: string | undefined, email: string | undefined }) => {
+    const router = useRouter();
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
 
-                <div className="flex items-center gap-4">
-                    <ModeToggle />
-                    <Avatar>
-                        <AvatarImage src={imageSrc} />
-                        <AvatarFallback>{userName?.charAt(0).toUpperCase() || email?.charAt(0).toUpperCase()}</AvatarFallback>
-                    </Avatar>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger><Ellipsis /></DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuItem className="flex justify-between">
-                                <p>Settings</p> <Settings />
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                                className="flex justify-between"><p>Logout</p>
-                                <LogOut />
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+    useEffect(() => {
+        // --- Scroll Background & Hide/Show Logic ---
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            setIsScrolled(currentScrollY > 0);
 
+            // Hide on scroll down, show on scroll up
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                setIsVisible(false); // Scrolling down, hide navbar
+            } else {
+                setIsVisible(true); // Scrolling up or at the top, show navbar
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [lastScrollY]);
+
+  
+
+    const headerClasses = `
+    fixed w-full top-0 left-0 z-50
+    transition-all duration-300 ease-in-out
+    ${isScrolled ? "border-b border-border bg-background/80 backdrop-blur-sm shadow-sm" : "bg-transparent border-b border-transparent"}
+    ${isVisible ? "translate-y-0" : "-translate-y-full"}
+  `;
+
+    return (
+        <header className={headerClasses}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16">
+                    {/* Logo */}
+                    <div onClick={() => router.push("/")} className="flex items-center gap-2 cursor-pointer">
+                        {/* Your SVG logo */}
+                        <svg width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 20C0 12.5231 0 8.78461 1.60769 6C2.66091 4.17577 4.17577 2.66091 6 1.60769C8.78461 0 12.5231 0 20 0C27.4769 0 31.2154 0 34 1.60769C35.8242 2.66091 37.3391 4.17577 38.3923 6C40 8.78461 40 12.5231 40 20C40 27.4769 40 31.2154 38.3923 34C37.3391 35.8242 35.8242 37.3391 34 38.3923C31.2154 40 27.4769 40 20 40C12.5231 40 8.78461 40 6 38.3923C4.17577 37.3391 2.66091 35.8242 1.60769 34C0 31.2154 0 27.4769 0 20Z" fill="#00DC33"></path>
+                            <path fillRule="evenodd" clipRule="evenodd" d="M28.0441 7.60927C28.8868 6.80331 30.2152 6.79965 31.0622 7.58229L31.1425 7.66005L31.4164 7.94729C34.1911 10.9318 35.2251 14.4098 34.9599 17.8065C34.6908 21.2511 33.1012 24.4994 30.8836 27.0664C28.6673 29.6316 25.7084 31.6519 22.51 32.5287C19.2714 33.4164 15.7294 33.1334 12.6547 30.9629C10.0469 29.1218 9.05406 26.1465 8.98661 23.2561C7.52323 22.5384 5.98346 21.6463 4.36789 20.5615L3.941 20.2716L3.85006 20.206C2.93285 19.5053 2.72313 18.2084 3.39161 17.2564C4.06029 16.3043 5.36233 16.046 6.34665 16.6512L6.44134 16.7126L6.83024 16.9771C7.79805 17.6269 8.72153 18.1903 9.59966 18.6767C10.1661 16.6889 11.1047 14.7802 12.3413 13.207C14.1938 10.8501 16.9713 8.96525 20.374 9.24647C23.439 9.49995 25.7036 11.081 26.8725 13.3122C28.0044 15.4728 28.0211 18.0719 27.0319 20.307C26.0234 22.5857 23.976 24.484 21.0309 25.2662C18.9114 25.8291 16.4284 25.7905 13.6267 25.0367V25.0377C12.5115 24.7375 11.3427 24.323 10.1212 23.7846C9.8472 23.6638 9.60873 23.8483 10.1212 24.1686C11.5636 25.1924 13.5956 26.0505 14.1836 26.3385C14.4615 26.788 14.8061 27.1568 15.2011 27.4356C17.0188 28.7188 19.1451 28.9539 21.3396 28.3523C23.5743 27.7397 25.8141 26.2625 27.5514 24.2516C29.2873 22.2423 30.4065 19.8348 30.5909 17.4727C30.765 15.2439 30.1218 12.9543 28.1842 10.8736L27.9927 10.6731L27.9162 10.5906C27.1538 9.72748 27.2018 8.41516 28.0441 7.60927ZM20.0092 13.5651C18.6033 13.4489 17.1196 14.189 15.8013 15.8662C14.7973 17.1436 14.0376 18.8033 13.6503 20.5112C16.4093 21.4544 18.4655 21.4608 19.8942 21.0814C21.5481 20.6422 22.5399 19.6477 23.0172 18.5693C23.5137 17.4472 23.4628 16.2245 22.9813 15.3055C22.5369 14.4571 21.6422 13.7002 20.0092 13.5651Z" fill="#ffffff"></path>
+                        </svg>
+                        <span className="text-xl font-semibold">KanoonGPT</span>
+                    </div>
+
+               
+                    <div className="flex items-center gap-4">
+                        <ModeToggle />
+                        <Avatar>
+                            <AvatarImage src={imageSrc} />
+                            <AvatarFallback>{userName?.charAt(0).toUpperCase() || email?.charAt(0).toUpperCase()}</AvatarFallback>
+                        </Avatar>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger><Ellipsis /></DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuItem className="flex justify-between">
+                                    <p>Settings</p> <Settings />
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className="flex justify-between"><p>Logout</p>
+                                    <LogOut />
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>)
-}
+
+            {/* Mobile menu (Hidden by default, shown when isMenuOpen is true) */}
+            <div
+                className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+            >
+                <div className="flex flex-col items-center gap-4 py-4 border-t border-border">
+                    {["Home", "About", "Services", "Contact"].map((item) => (
+                        <a key={item} href="#" className="block w-full text-center py-2 text-muted-foreground hover:text-foreground font-medium">
+                            {item}
+                        </a>
+                    ))}
+                    <Button
+                        onClick={() => router.push("/auth")}
+                        className="w-full bg-chart-2 text-primary-foreground hover:bg-chart-2/90 mt-2"
+                    >
+                        Sign Up
+                    </Button>
+                </div>
+            </div>
+        </header>
+    );
+};
