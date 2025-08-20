@@ -6,7 +6,7 @@ import { Textarea } from "../ui/textarea"
 
 export const Index = () => {
   return (
-    <main className="flex flex-col pt-20 gap-10 w-full" >
+    <main className="flex px-5 flex-col pt-20 gap-10 w-full" >
       <TextareaUploadCard />
       <AnimatedCardsSection />
     </main>
@@ -89,13 +89,14 @@ function TextareaUploadCard() {
       transition={{ duration: 0.2 }}
       className="w-full max-w-3xl mx-auto"
     >
+      <h2 className="text-4xl font-bold mb-4 text-center bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+        Compose & Upload
+      </h2>
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Drop your Legal file or paste your content below. You can attach one file (PDF/IMG/DOC) and write up to {MAX_CHARS.toLocaleString()} characters.
+      </p>
+ 
       <Card className="border-muted/60 my-10 shadow-sm">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-xl">Compose & Upload</CardTitle>
-          <CardDescription>
-            Drop your Legal file or paste your content below. You can attach one file (PDF/IMG/DOC) and write up to {MAX_CHARS.toLocaleString()} characters.
-          </CardDescription>
-        </CardHeader>
 
         <CardContent className="space-y-4">
           {/* Upload zone */}

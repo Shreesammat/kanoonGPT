@@ -106,7 +106,8 @@ export const Navbar = () => {
 
             {/* Mobile menu (Hidden by default, shown when isMenuOpen is true) */}
             <div
-                className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
+                className={`md:hidden bg-background overflow-hidden transition-all duration-300 ease-in-out 
+                    ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
             >
                 <div className="flex flex-col items-center gap-4 py-4 border-t border-border">
                     {["Home", "About", "Services", "Contact"].map((item) => (
@@ -157,9 +158,7 @@ export const ProfileNavbar = ({ imageSrc, userName, email }:
         };
     }, [lastScrollY]);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+  
 
     const headerClasses = `
     fixed w-full top-0 left-0 z-50

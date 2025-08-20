@@ -240,34 +240,38 @@ export function ChatbotUI() {
             </ScrollArea>
             <div className="p-4">
               <div className="max-w-3xl mx-auto">
-
-                <div className="relative flex justify-between gap-2 items-end rounded-2xl border border-border p-2">
+                
+                <div className="relative flex flex-col gap-2 bg-secondary/60 rounded-2xl border border-border p-2">
                   <Textarea
                     ref={textareaRef}
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
                     placeholder="Type your message..."
-                    className="flex-1 min-h-[44px] max-h-32 w-[90%] resize-none bg-transparent border-none 
-                    focus-visible:ring-0 focus-visible:ring-offset-0 text-sm scrollbar-hide"
+                  
+                    className="flex-1 min-h-[44px] max-h-32 resize-none border-0 
+                     focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                     rows={textareaRows}
                   />
-
-                  <div className="flex gap-2 justify-end">
-                    <Button onClick={handleSubmit} disabled={!inputValue.trim() || isTyping || creatingUserMsg} size="sm" className="w-8 h-8 p-0 bg-primary hover:bg-primary/90 disabled:bg-muted disabled:border-primary border disabled:text-muted-foreground">
+                  <div className="flex gap-2 justify-end  items-center">
+                  
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={!inputValue.trim() || isTyping || creatingUserMsg}
+                      size="sm"
+                      className="w-8 h-8 p-0 rounded-full bg-primary hover:bg-primary/90 disabled:bg-muted disabled:border-primary border disabled:text-muted-foreground flex items-center justify-center"
+                    >
                       <ArrowUp className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       )}
 
-
-
-      {/* AnimatePresence for enlarged image modal (can be outside the main div) */}
       <AnimatePresence>
         {enlargedImageUrl && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setEnlargedImageUrl(null)} className="fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-4 cursor-zoom-out">

@@ -41,7 +41,7 @@ export default async function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Sora:wght@100..800&display=swap" rel="stylesheet" />
       </head>
       <body
-        className={`${openSans.variable} antialiased`}
+        className={`${openSans.variable} antialiased  newsreader-kanoongpt`}
       >
         <TrpcProviders>
           <SupabaseProvider session={session}>
